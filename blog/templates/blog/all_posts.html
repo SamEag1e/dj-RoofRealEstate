@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %} وبلاگ | روف {% endblock title %}
+{% block content %}
+    <section class="site-section " id="blog-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-5 position-relative">
+                    <h2 class="section-title text-center mb-5 ">وبلاگ</h2>
+                </div>
+        
+                {% for post in all_posts %}
+                <div class="col-md-6 mb-5  col-lg-4">
+                    <div class="blog_entry">
+                        <div class="image-container">
+                            <a href="{% url 'each_post' post.id %}"><img src="{{ post.image.url }}" alt="Image" class="img-fluid post-image"></a>
+                        </div>
+                        <div class="p-4 bg-white post-detail">
+                            <h3><a href="{% url 'each_post' post.id %}">{{ post.title }}</a></h3>
+                            <span class="date">{{ post.date }}</span>
+                            <p class="brief-text" >{{ post.brief }}</p>
+                            <p class="more"><a href="{% url 'each_post' post.id %}"> بیشتر بخوانید</a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

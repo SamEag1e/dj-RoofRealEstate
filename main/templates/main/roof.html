@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  صفحه اصلی | روف
+{% endblock title %}
+{% block content %}
+<div class="site-blocks-cover overlay bg-light introduce" id="home-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center align-self-center text-intro">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 top-description">
+            <h3 class="text-transparent font-weight-bolder" data-aos="fade-up" data-aos-delay="">بازدید کننده گرامی، به وبسایت مشاور املاک روف خوش آمدید.</h3>
+            <h3 class="text-transparent font-weight-bold" data-aos="fade-up" data-aos-delay=""> اینجا جایی است که شما از قیمت به روز و دقیق ملک مورد نظر خود اطمینان پیدا میکنید.</h3>
+            <br>
+            <br>
+            <p class="lead text-transparent font-weight-bold" data-aos="fade-up" data-aos-delay="100">وبسایت روف به شما این امکان را می دهد تا با وارد کردن اطلاعات ملک، چه قصد خرید داشته باشید یا فروش، ملک موردنظر را با هزاران آگهی موجود در دیتابیس ما مقایسه کنید و بدون نگرانی و اتلاف وقت برای پیدا کردن کارشناس مناسب و مطمئن، یک قیمت نزدیک و به روز بدست بیاورید.</p>
+            <p class="lead text-transparent font-weight-bold" data-aos="fade-up" data-aos-delay="100">آگهی های موجود در دیتابیس ما همه روزه برای تمام کلانشهر های ایران از سراسر وب در حال بروزرسانی است.</p>
+            <p class="lead text-transparent" data-aos="fade-up" data-aos-delay="100">همچنین، در آینده ای نزدیک امکان مشاوره آنلاین و ارتباط با مشاورین متخصص ما فراهم خواهد شد.</p>
+            <p data-aos="fade-up" data-aos-delay="200"><a href="#main-form" class="btn smoothscroll btn-primary">امتحان کنید</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container my-5" id="main-form">
+  <form action="#reuslt-section" class="cotainer d-flex flex-column justify-content-center align-items-center" method="GET">
+    <div class="container d-flex justify-content-center align-items-center ">
+      <table>
+        <tr>
+          <th><label for="days">بررسی چند روز قبل</label></th>
+          <td><input type="number" name="days" id="days" min="1" max="90"  {% if form_defaults %} value="{{ form_defaults.days }}" {% else %} value="10" {% endif %} required></td>
+        </tr>
+        <tr>
+          <th><label for="categories">دسته بندی</label></th>
+          <td>
+              <select id="categories" name="category">
+                <option value="Apartment" {% if form_defaults.category == 'Apartment' %} selected {% endif %}>آپارتمان</option>
+                <option value="Villa" {% if form_defaults.category == 'Villa' %} selected {% endif %}>ویلایی</option>
+                <option value="Land" {% if form_defaults.category == 'Land' %} selected {% endif %}>زمین</option>
+              </select>
+            </td>
+        </tr>
+        <tr>
+          <th><label for="cities">شهر</label></th>
+          <td>
+              <select id="cities" name="city" value="isfahan">
+                <option value="tehran" {% if form_defaults.city == 'tehran' %} selected {% endif %}>تهران</option>
+                <option value="karaj" {% if form_defaults.city == 'karaj' %} selected {% endif %}>کرج</option>
+                <option value="mashhad" {% if form_defaults.city == 'mashhad' %} selected {% endif %}>مشهد</option>
+                <option value="isfahan" {% if form_defaults.city == 'isfahan' %} selected {% endif %}>اصفهان</option>
+                <option value="tabriz" {% if form_defaults.city == 'tabriz' %} selected {% endif %}>تبریز</option>
+                <option value="shiraz" {% if form_defaults.city == 'shiraz' %} selected {% endif %}>شیراز</option>
+                <option value="ahvaz" {% if form_defaults.city == 'ahvaz' %} selected {% endif %}>اهواز</option>
+                <option value="qom" {% if form_defaults.city == 'qom' %} selected {% endif %}>قم</option>
+                <option value="kermanshah" {% if form_defaults.city == 'kermanshah' %} selected {% endif %}>کرمانشاه</option>
+              </select>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="districts">منطقه</label></th>
+          <td><select id="districts" name="district"></select></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="container d-none justify-content-center align-items-center" id="apartment">
+      <table>
+        <tr>
+          <th><label for="floor_number">طبقه</label></th>
+          <td><input type="number" max="30" min="-1" {% if form_defaults %} value="{{ form_defaults.floor_number }}" {% endif %} name="apr_floor_number" id="floor_number"></td>
+        </tr>
+        <tr>
+          <th><label for="total_floors">کل طبقات</label></th>
+          <td><input type="number" max="30" min="1" {% if form_defaults %} value="{{ form_defaults.total_floors }}" {% endif %} name="apr_total_floors" id="total_floors"></td>
+        </tr>
+        <tr>
+          <th><label for="production_year">سال ساخت (بعد از)</label></th>
+          <td><input type="range" max="1403" min="1350" step="1" value="1398" name="apr_production_year" id="apr_production_year" oninput="apartmentYearValue.innerText = this.value">
+          <p class="d-inline" id="apartmentYearValue">1398</p></td>
+        </tr>
+        <tr>
+          <th><label for="rooms">تعداد اتاق (بیش از )</label></th>
+          <td><input type="range" max="5" min="0" step="1" value="2" name="apr_rooms" id="rooms" oninput="apartmentRoomValue.innerText = this.value">
+          <p class="d-inline" id="apartmentRoomValue">2</p></td>
+        </tr>
+        <tr>
+          <th><label for="elevator">آسانسور</label></th>
+          <td><input type="checkbox" name="apr_elevator" id="elevator"></td>
+        </tr>
+        <tr>
+          <th><label for="parking">پارکینگ</label></th>
+          <td><input type="checkbox" name="apr_parking" id="parking"></td>
+        </tr>
+        <tr>
+          <th><label for="storeroom">انباری</label></th>
+          <td><input type="checkbox" name="apr_storeroom" id="storeroom"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="container d-none justify-content-center align-items-center" id="villa">
+      <table>
+        <tr>
+          <th><label for="production_year">سال ساخت (بعد از)</label></th>
+          <td><input type="range" max="1403" min="1350" step="1" value="1398" name="villa_production_year" id="production_year" oninput="yearValue.innerText = this.value">
+          <p class="d-inline" id="yearValue">1398</p></td>
+        </tr>
+        <tr>
+          <th><label for="rooms">تعداد اتاق (بیش از )</label></th>
+          <td><input type="range" max="5" min="0" step="1" value="2" name="villa_rooms" id="rooms" oninput="roomValue.innerText = this.value">
+          <p class="d-inline" id="roomValue">2</p></td>
+        </tr>
+        <tr>
+          <th><label for="parking">پارکینگ</label></th>
+          <td><input type="checkbox" name="villa_parking" id="parking"></td>
+        </tr>
+        <tr>
+          <th><label for="storeroom">انباری</label></th>
+          <td><input type="checkbox" name="villa_storeroom" id="storeroom"></td>
+        </tr>
+        <tr>
+          <th><label for="balcony">بالکن</label></th>
+          <td><input type="checkbox" name="villa_balcony" id="balcony"></td>
+        </tr>
+      </table>
+    </div>
+    <button type="submit" class="btn btn-primary my-5">جستجو</button>
+  </form>
+</div>
+{% if query_result %}
+  <div class="container text-center my-5 p-5 reuslt-section" id="reuslt-section">
+    {% if query_result.city_result.count %}
+      <p class="h3" >در <b> {{ query_result.days }} </b>روز اخیر در بخش <b>{{ query_result.fa_category }}</b> برای شهر <b>{{ query_result.city }}</b>:</p>
+      <br>
+      <p class="h5" >از بین <b>{{ query_result.city_result.count }}</b> آگهی، میانگین قیمت <b>{{ query_result.city_result.avg }}</b>میلیون تومان برای هر متر مربع برای <b>کل شهر</b></p>
+      <br>
+      {% if query_result.district_result.count and query_result.district %}
+      <p class="h5" >از بین <b>{{ query_result.district_result.count }}</b> آگهی، میانگین قیمت <b>{{ query_result.district_result.avg }}</b>میلیون تومان برای هر متر مربع برای <b>منطقه مورد نظر</b></p>
+      <br>
+        {% if query_result.filtered_result.count %}
+          <p class="h5"> و از بین <b>{{ query_result.filtered_result.count}}</b> آگهی، میانگین قیمت <b>{{query_result.filtered_result.avg}}</b>میلیون تومان برای هر متر مربع با <b>با اعمال تمام فیلتر ها</b></p>
+          <br>
+        {% else %}
+          {% if query_result.category !=  "Land" %}
+            <p class="h5">هنوز هیچ آگهی با اعمال تمام فیلتر های مورد نظر ثبت نشده است.</p>
+            <br>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        <p class="h5">هنوز هیچ آگهی برای منطقه مورد نظر ثبت نشده است و یا منطقه را انتخاب نکرده اید.</p>
+        <br>
+      {% endif %}
+    {% else %}
+      <p class="h5">هنوز هیچ آگهی برای شهر مورد نظر ثبت نشده است. لطفا در روز های آتی به ما سر بزنید.</p>
+      <br>
+    {% endif %}
+  </div>
+{% endif %}
+
+<section class="site-section bg-light" id="blog-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-5 position-relative">
+        <h2 class="section-title text-center mb-5 ">آخرین وبلاگ</h2>
+        
+      </div>
+
+      {% for post in blog %}
+        <div class="col-md-6 mb-5  col-lg-4">
+          <div class="blog_entry">
+            <div class="image-container">
+              <a href="{% url 'each_post' post.id %}"><img src="media/{{ post.image }}" alt="Image" class="img-fluid post-image"></a>
+            </div>
+            <div class="p-4 bg-white post-detail">
+              <h3><a href="{% url 'each_post' post.id %}">{{ post.title }}</a></h3>
+              <span class="date">{{ post.date }}</span>
+              <p class="brief-text" >{{ post.brief }}</p>
+              <p class="more"><a href="{% url 'each_post' post.id %}"> بیشتر بخوانید</a></p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row text-center d-flex justify-content-center ">
+      <a class="text-secondary m-5 font-weight-bolder" href="{% url 'blog' %}">مشاهده همه پست ها</a>
+    </div>
+  </div>
+</section>
+<section class="site-section" id="contact-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-5 position-relative">
+        <h2 class="section-title text-center mb-5">فرم تماس با ما</h2>
+      </div>
+    </div>
+    <div class="row justify-content-between">
+      <div class="col-lg-6">
+        <form action="#" class="form" method="post">
+          {% csrf_token %}
+          <div class="row mb-4">
+            <div class="form-group col-6">
+              <input type="text" class="form-control" name="f_name" placeholder="نام">
+            </div>
+            <div class="form-group col-6">
+              <input type="text" class="form-control" name="l_name" placeholder="نام خانوادگی">
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="form-group col-12">
+              <input type="email" class="form-control text-right" name="email" placeholder="ایمیل" required>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="form-group col-12">
+              <input type="text" class="form-control" name="subject" placeholder="موضوع پیام" required>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="form-group col-12">
+              <textarea name="text-msg" id="" cols="30" rows="10" class="form-control"
+                placeholder="پیام خود را در این قسمت وارد کنید..."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <input type="submit" class="btn btn-primary" value="ارسال پیام">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-lg-5">
+        <h3>تهران</h3>
+        <ul class="list-unstyled">
+          <li class="mb-3">
+            <strong class="d-block mb-1">آدرس</strong>
+            <span>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</span>
+          </li>
+          <li class="mb-3">
+            <strong class="d-block mb-1">شماره تماس</strong>
+            <span>021123456789</span>
+          </li>
+          <li class="mb-3">
+            <strong class="d-block mb-1">ایمیل</strong>
+            <span>lorem@lorem.com</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+{% block extrajs %}
+<script src="{% static 'js/js_districts.js' %}"></script>
+<script src="{% static 'js/js_category_details.js' %}" ></script>
+{% endblock extrajs %}
